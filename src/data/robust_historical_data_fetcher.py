@@ -17,7 +17,7 @@ class RobustHistoricalDataFetcher:
     
     def __init__(self):
         self.polygon_key = os.getenv('POLYGON_API_KEY')
-        self.alpha_vantage_key = os.getenv('ALPHA_VANTAGE_KEY', 'demo')
+        self.alpha_vantage_key = os.getenv('ALPHA_VANTAGE_KEY', '')
         
     def get_polygon_historical_data(self, symbol, period_days=252):
         """Obtener datos históricos de Polygon.io"""

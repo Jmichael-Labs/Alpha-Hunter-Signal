@@ -113,8 +113,8 @@ except ImportError:
 class DataSourceFailover:
     def __init__(self):
         # Free API keys - get from environment or use temporary ones
-        self.polygon_api_key = os.getenv('POLYGON_API_KEY', 'demo')  # Get from env
-        self.alpha_vantage_key = os.getenv('ALPHA_VANTAGE_KEY', 'G8XVDRX4BKNP6XCN')  # Temporary free key
+        self.polygon_api_key = os.getenv('POLYGON_API_KEY', '')  # Get from env
+        self.alpha_vantage_key = os.getenv('ALPHA_VANTAGE_KEY', '')  # User must provide key
         self.yahoo_failed_count = 0
         self.last_yahoo_error = None
         self.last_request_time = 0
@@ -162,7 +162,7 @@ class DataSourceFailover:
     
     def get_polygon_data(self, ticker, period="5d"):
         """Get data from Polygon.io API"""
-        if self.polygon_api_key == 'demo':
+        if not self.polygon_api_key:
             raise Exception("No Polygon API key configured")
             
         # Convert period to days
@@ -207,7 +207,7 @@ class DataSourceFailover:
     
     def get_alpha_vantage_data(self, ticker):
         """Get data from Alpha Vantage API"""
-        if self.alpha_vantage_key == 'demo':
+        if not self.alpha_vantage_key:
             raise Exception("No Alpha Vantage API key configured")
             
         url = "https://www.alphavantage.co/query"

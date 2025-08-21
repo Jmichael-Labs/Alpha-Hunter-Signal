@@ -75,7 +75,7 @@ class RealTimePriceFetcher:
         """Obtener precio de Finnhub API (gratis)"""
         try:
             # Free API key (public tier)
-            api_key = "sandbox_c7bj2g2ad3iccl4b05f0"
+            api_key = os.getenv('FINNHUB_API_KEY', '')
             url = f"https://finnhub.io/api/v1/quote"
             params = {
                 'symbol': symbol,

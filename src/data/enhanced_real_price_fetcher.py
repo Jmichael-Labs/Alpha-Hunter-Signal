@@ -15,7 +15,7 @@ class EnhancedRealPriceFetcher:
     
     def __init__(self):
         # Load Alpha Vantage API key from environment
-        self.alpha_vantage_key = os.getenv('ALPHA_VANTAGE_KEY', 'demo')
+        self.alpha_vantage_key = os.getenv('ALPHA_VANTAGE_KEY', '')
         print(f"🔑 Using Alpha Vantage key: {self.alpha_vantage_key[:8]}...")
         
     def get_alpha_vantage_price(self, symbol):
