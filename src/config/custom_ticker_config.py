@@ -1,248 +1,274 @@
 #!/usr/bin/env python3
 """
-Alpha Hunter Signals - Custom Ticker Configuration
-Created by Michael David Jaramillo
-
-Configuration for S&P 500 ticker selection and filtering.
+ALPHA HUNTER V2 - CONFIGURACIÓN PERSONALIZADA DE TICKERS
+Lista personalizada de acciones para análisis enfocado y especializado
 """
 
-from typing import List, Dict, Set
-from datetime import datetime
-
-# High-quality S&P 500 tickers with strong options liquidity
-HIGH_QUALITY_SP500_TICKERS = [
-    # Technology
-    'AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'AVGO', 'CRM', 'ADBE',
-    'INTC', 'AMD', 'CSCO', 'TXN', 'QCOM', 'NFLX', 'PYPL', 'INTU', 'AMAT', 'MU',
-    
-    # Healthcare & Pharmaceuticals  
-    'UNH', 'JNJ', 'PFE', 'ABBV', 'TMO', 'ABT', 'DHR', 'BMY', 'LLY', 'MDT',
-    'ISRG', 'SYK', 'BSX', 'EW', 'ZTS', 'REGN', 'GILD', 'BIIB', 'AMGN', 'CVS',
-    
-    # Financial Services
-    'JPM', 'BAC', 'WFC', 'GS', 'MS', 'C', 'BLK', 'SPGI', 'AXP', 'SCHW',
-    'CB', 'MMC', 'TRV', 'AIG', 'AON', 'COF', 'USB', 'PNC', 'TFC', 'AFL',
-    
-    # Consumer & Retail
-    'WMT', 'HD', 'PG', 'KO', 'PEP', 'MCD', 'COST', 'TJX', 'NKE', 'SBUX',
-    'TGT', 'LOW', 'DG', 'MDLZ', 'CL', 'KMB', 'GIS', 'K', 'CPB', 'MKC',
-    
-    # Industrial & Manufacturing
-    'BA', 'CAT', 'HON', 'GE', 'RTX', 'LMT', 'UNP', 'UPS', 'FDX', 'DE',
-    'MMM', 'ITW', 'EMR', 'ETN', 'PH', 'ROK', 'DOV', 'IEX', 'XYL', 'FTV',
-    
-    # Energy & Utilities
-    'XOM', 'CVX', 'COP', 'EOG', 'SLB', 'MPC', 'VLO', 'PSX', 'KMI', 'OKE',
-    'NEE', 'DUK', 'SO', 'D', 'EXC', 'SRE', 'AEP', 'XEL', 'PPL', 'ES',
-    
-    # ETFs (High Liquidity)
-    'SPY', 'QQQ', 'IWM', 'DIA', 'VTI', 'VOO', 'ARKK', 'XLF', 'XLE', 'XLI',
-]
-
-# Extended S&P 500 (additional valid tickers)
-EXTENDED_SP500_TICKERS = [
-    'PM', 'MO', 'LIN', 'LRCX', 'KLAC', 'MRVL', 'ADI', 'NXPI', 'MCHP', 'FTNT',
-    'PANW', 'CRWD', 'ZM', 'DOCU', 'WORK', 'SNOW', 'DDOG', 'NET', 'OKTA', 'ZS',
-    'MRNA', 'BNTX', 'JNJ', 'PFE', 'ABBV', 'GILD', 'REGN', 'VRTX', 'ILMN', 'TECH',
-    'V', 'MA', 'PYPL', 'SQ', 'COIN', 'SOFI', 'AFRM', 'UPST', 'LC', 'ALLY',
-]
-
-# Sectors configuration for balanced analysis
-SECTOR_CONFIGURATION = {
-    'technology': {
-        'weight': 0.25,  # 25% of analysis
-        'tickers': ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA', 'CRM', 'ADBE'],
-        'min_tickers': 3,
-        'max_tickers': 8
+# Lista personalizada de tickers para análisis enfocado - CONFIGURACIÓN DEFINITIVA
+# 🎯 PRIORIDAD MÁXIMA: Tickers con mejores oportunidades y estrategias fáciles de seguir
+CUSTOM_FOCUS_TICKERS = {
+    # ETFs Principales - Máxima liquidez y opciones
+    'SPY': {
+        'name': 'SPDR S&P 500 ETF Trust',
+        'exchange': 'NYSE Arca',
+        'type': 'ETF',
+        'sector': 'Market Index',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'iron_condor', 'covered_call', 'straddle'],
+        'priority': 10  # MÁXIMA PRIORIDAD - Índice principal
     },
-    'healthcare': {
-        'weight': 0.20,  # 20% of analysis
-        'tickers': ['UNH', 'JNJ', 'PFE', 'ABBV', 'TMO', 'ABT', 'LLY', 'MDT'],
-        'min_tickers': 2,
-        'max_tickers': 6
+    'QQQ': {
+        'name': 'Invesco QQQ Trust (NASDAQ-100 ETF)',
+        'exchange': 'NASDAQ',
+        'type': 'ETF',
+        'sector': 'Technology',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'iron_condor', 'covered_call', 'straddle'],
+        'priority': 10  # MÁXIMA PRIORIDAD - Tech Index
     },
-    'financial': {
-        'weight': 0.20,  # 20% of analysis  
-        'tickers': ['JPM', 'BAC', 'WFC', 'GS', 'MS', 'BLK', 'SPGI', 'AXP'],
-        'min_tickers': 2,
-        'max_tickers': 6
+    'DIA': {
+        'name': 'SPDR Dow Jones Industrial Average ETF Trust',
+        'exchange': 'NYSE Arca',
+        'type': 'ETF',
+        'sector': 'Market Index',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'iron_condor', 'covered_call'],
+        'priority': 10  # MÁXIMA PRIORIDAD (upgraded from 9) - Dow Index
     },
-    'consumer': {
-        'weight': 0.15,  # 15% of analysis
-        'tickers': ['WMT', 'HD', 'PG', 'KO', 'PEP', 'MCD', 'COST', 'TJX'],
-        'min_tickers': 2,
-        'max_tickers': 5
+    
+    # Tech Giants - MÁXIMA PRIORIDAD - Alta volatilidad y opciones líquidas
+    'AAPL': {
+        'name': 'Apple Inc.',
+        'exchange': 'NASDAQ',
+        'type': 'Stock',
+        'sector': 'Technology',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'iron_condor', 'covered_call', 'straddle'],
+        'priority': 10  # MÁXIMA PRIORIDAD - Tech líder
     },
-    'industrial': {
-        'weight': 0.10,  # 10% of analysis
-        'tickers': ['BA', 'CAT', 'HON', 'GE', 'RTX', 'LMT', 'UNP', 'DE'],
-        'min_tickers': 1,
-        'max_tickers': 4
+    'TSLA': {
+        'name': 'Tesla, Inc.',
+        'exchange': 'NASDAQ',
+        'type': 'Stock',
+        'sector': 'Automotive/Energy',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'straddle', 'iron_condor'],
+        'priority': 10  # MÁXIMA PRIORIDAD (upgraded from 9) - Alta volatilidad
     },
-    'energy': {
-        'weight': 0.10,  # 10% of analysis
-        'tickers': ['XOM', 'CVX', 'COP', 'EOG', 'SLB', 'NEE', 'DUK'],
-        'min_tickers': 1,
-        'max_tickers': 3
+    'NVDA': {
+        'name': 'NVIDIA Corporation',
+        'exchange': 'NASDAQ',
+        'type': 'Stock',
+        'sector': 'Technology/AI',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'iron_condor', 'straddle'],
+        'priority': 10  # MÁXIMA PRIORIDAD - AI líder
+    },
+    'AMZN': {
+        'name': 'Amazon.com, Inc.',
+        'exchange': 'NASDAQ',
+        'type': 'Stock',
+        'sector': 'Technology/E-commerce',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'iron_condor', 'covered_call'],
+        'priority': 10  # MÁXIMA PRIORIDAD (upgraded from 9) - E-commerce líder
+    },
+    'META': {
+        'name': 'Meta Platforms, Inc.',
+        'exchange': 'NASDAQ',
+        'type': 'Stock',
+        'sector': 'Technology/Social Media',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'iron_condor', 'straddle'],
+        'priority': 10  # MÁXIMA PRIORIDAD (upgraded from 9) - Social Media líder
+    },
+    'NFLX': {
+        'name': 'Netflix, Inc.',
+        'exchange': 'NASDAQ',
+        'type': 'Stock',
+        'sector': 'Technology/Streaming',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'iron_condor', 'straddle'],
+        'priority': 10  # MÁXIMA PRIORIDAD (upgraded from 8) - Streaming líder
+    },
+    
+    # Traditional Sectors - GUARANTEED HIGH PRIORITY WINNERS
+    'BAC': {
+        'name': 'Bank of America Corporation',
+        'exchange': 'NYSE',
+        'type': 'Stock',
+        'sector': 'Financial',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'covered_call', 'iron_condor'],
+        'priority': 10  # INCREASED TO MAXIMUM (was 7) - V3 99.9/100 WINNER
+    },
+    'JPM': {
+        'name': 'JPMorgan Chase & Co.',
+        'exchange': 'NYSE',
+        'type': 'Stock',
+        'sector': 'Financial',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'covered_call', 'iron_condor'],
+        'priority': 10  # MAXIMUM PRIORITY - V3 78.8/100 WINNER
+    },
+    'WFC': {
+        'name': 'Wells Fargo & Company',
+        'exchange': 'NYSE',
+        'type': 'Stock',
+        'sector': 'Financial',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'covered_call', 'iron_condor'],
+        'priority': 10  # MAXIMUM PRIORITY - V3 88.1/100 WINNER
+    },
+    'XOM': {
+        'name': 'Exxon Mobil Corporation',
+        'exchange': 'NYSE',
+        'type': 'Stock',
+        'sector': 'Energy',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'covered_call', 'iron_condor'],
+        'priority': 10  # MÁXIMA PRIORIDAD (upgraded from 7) - Energy líder
+    },
+    
+    # Commodities ETFs - MÁXIMA PRIORIDAD
+    'GLD': {
+        'name': 'SPDR Gold Shares (ETF)',
+        'exchange': 'NYSE Arca',
+        'type': 'ETF',
+        'sector': 'Commodities/Gold',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'iron_condor', 'straddle'],
+        'priority': 10  # MÁXIMA PRIORIDAD (upgraded from 8) - Gold hedge
+    },
+    'SLV': {
+        'name': 'iShares Silver Trust (ETF)',
+        'exchange': 'NYSE Arca',
+        'type': 'ETF',
+        'sector': 'Commodities/Silver',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'iron_condor'],
+        'priority': 10  # MÁXIMA PRIORIDAD (upgraded from 7) - Silver hedge
+    },
+    'USO': {
+        'name': 'United States Oil Fund LP (ETF)',
+        'exchange': 'NYSE Arca',
+        'type': 'ETF',
+        'sector': 'Commodities/Oil',
+        'options_liquid': True,
+        'strategies': ['bull_put', 'bear_call', 'straddle', 'iron_condor'],
+        'priority': 10  # MÁXIMA PRIORIDAD (upgraded from 8) - Oil volatility
+    },
+    
+    # Índices y Volatilidad - PRIORIDAD MÁXIMA
+    '^IXIC': {
+        'name': 'NASDAQ Composite Index',
+        'exchange': 'NASDAQ',
+        'type': 'Index',
+        'sector': 'Market Index',
+        'options_liquid': False,  # Index tracking only
+        'strategies': ['market_analysis', 'trend_following'],
+        'priority': 10  # MÁXIMA PRIORIDAD - NASDAQ tracking
+    },
+    'VIX': {
+        'name': 'CBOE Volatility Index',
+        'exchange': 'CBOE',
+        'type': 'Index',
+        'sector': 'Volatility',
+        'options_liquid': True,
+        'strategies': ['volatility_play', 'market_hedge', 'contrarian'],
+        'priority': 10  # MÁXIMA PRIORIDAD - Volatility trading
+    },
+    
+    # Futuros - PRIORIDAD MÁXIMA
+    'GC=F': {
+        'name': 'Gold Futures',
+        'exchange': 'COMEX',
+        'type': 'Future',
+        'sector': 'Commodities/Gold',
+        'options_liquid': True,
+        'strategies': ['futures_trading', 'commodity_hedge', 'inflation_play'],
+        'priority': 10  # MÁXIMA PRIORIDAD - Gold futures
+    },
+    'CL=F': {
+        'name': 'Crude Oil Futures',
+        'exchange': 'NYMEX',
+        'type': 'Future',
+        'sector': 'Commodities/Oil',
+        'options_liquid': True,
+        'strategies': ['futures_trading', 'energy_hedge', 'volatility_play'],
+        'priority': 10  # MÁXIMA PRIORIDAD - Oil futures
+    },
+    'CUX': {
+        'name': 'Copper Futures (Extended)',
+        'exchange': 'COMEX',
+        'type': 'Future',
+        'sector': 'Commodities/Metal',
+        'options_liquid': True,
+        'strategies': ['futures_trading', 'industrial_hedge', 'economic_indicator'],
+        'priority': 10  # MÁXIMA PRIORIDAD - Industrial metals
     }
+    
+    # NOTA: CONFIGURACIÓN DEFINITIVA PERSONALIZADA
+    # ✅ Incluye TODOS los tickers de máxima oportunidad y estrategias fáciles de seguir
+    # ✅ ETFs, Stocks, Índices y Futuros con mejores opciones de trading
 }
 
-# Market cap tiers for risk management
-MARKET_CAP_TIERS = {
-    'mega_cap': {  # >$200B
-        'tickers': ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSLA'],
-        'risk_multiplier': 0.8,  # Lower risk
-        'max_allocation': 0.4
-    },
-    'large_cap': {  # $10B-$200B
-        'tickers': ['JPM', 'UNH', 'HD', 'PG', 'WMT', 'JNJ', 'V', 'MA'],
-        'risk_multiplier': 1.0,  # Standard risk
-        'max_allocation': 0.5
-    },
-    'mid_cap': {  # $2B-$10B
-        'tickers': ['TGT', 'DG', 'SBUX', 'TJX', 'LOW'],
-        'risk_multiplier': 1.2,  # Higher risk
-        'max_allocation': 0.3
-    }
+# Funciones de utilidad
+def get_priority_tickers(min_priority=9):
+    """Obtiene tickers por prioridad mínima"""
+    return {ticker: data for ticker, data in CUSTOM_FOCUS_TICKERS.items() 
+            if data['priority'] >= min_priority}
+
+def get_tickers_by_type(ticker_type):
+    """Obtiene tickers por tipo (ETF, Stock)"""
+    return {ticker: data for ticker, data in CUSTOM_FOCUS_TICKERS.items() 
+            if data['type'] == ticker_type}
+
+def get_tickers_by_sector(sector):
+    """Obtiene tickers por sector"""
+    return {ticker: data for ticker, data in CUSTOM_FOCUS_TICKERS.items() 
+            if sector.lower() in data['sector'].lower()}
+
+def get_strategies_for_ticker(ticker):
+    """Obtiene estrategias específicas para un ticker"""
+    return CUSTOM_FOCUS_TICKERS.get(ticker, {}).get('strategies', [])
+
+def is_high_priority(ticker):
+    """Verifica si un ticker es de alta prioridad"""
+    return CUSTOM_FOCUS_TICKERS.get(ticker, {}).get('priority', 0) >= 9
+
+# Lista simple para compatibilidad
+FOCUS_TICKER_LIST = list(CUSTOM_FOCUS_TICKERS.keys())
+
+# Configuración de análisis especializado
+ANALYSIS_CONFIG = {
+    'max_concurrent_analysis': 25,  # AUMENTADO A 25 (was 5) - Procesar todos los prioritarios
+    'priority_first': True,        # Analizar primero los de alta prioridad
+    'sector_diversification': True, # Diversificar por sectores
+    'etf_preference': True,        # Preferir ETFs por liquidez
+    'min_quality_threshold': 50.0  # Threshold mínimo de calidad (LOWERED from 70.0)
 }
 
-# Options liquidity requirements
-OPTIONS_LIQUIDITY_FILTER = {
-    'min_daily_volume': 1000,      # Minimum options volume
-    'min_open_interest': 500,      # Minimum open interest
-    'max_bid_ask_spread': 0.10,    # Maximum 10 cent spread
-    'required_strikes': 5,         # Minimum strike prices available
-    'days_to_expiry_range': (7, 21)  # 1-3 weeks expiry
-}
-
-# Risk management parameters per ticker type
-RISK_PARAMETERS = {
-    'conservative': {
-        'max_position_size': 0.02,    # 2% max per position
-        'stop_loss': 0.025,           # 2.5% stop loss
-        'take_profit': 0.03,          # 3% take profit
-        'max_trades_per_day': 3
-    },
-    'moderate': {
-        'max_position_size': 0.03,    # 3% max per position
-        'stop_loss': 0.03,            # 3% stop loss  
-        'take_profit': 0.05,          # 5% take profit
-        'max_trades_per_day': 5
-    },
-    'aggressive': {
-        'max_position_size': 0.05,    # 5% max per position
-        'stop_loss': 0.05,            # 5% stop loss
-        'take_profit': 0.08,          # 8% take profit
-        'max_trades_per_day': 8
-    }
-}
-
-def get_high_quality_tickers(limit: int = None) -> List[str]:
-    """
-    Get list of high-quality tickers for analysis.
-    
-    Args:
-        limit: Maximum number of tickers to return
-        
-    Returns:
-        List of ticker symbols
-    """
-    tickers = HIGH_QUALITY_SP500_TICKERS.copy()
-    
-    if limit:
-        return tickers[:limit]
-    
-    return tickers
-
-def get_sector_balanced_tickers(max_tickers: int = 50) -> List[str]:
-    """
-    Get sector-balanced ticker selection.
-    
-    Args:
-        max_tickers: Maximum total tickers to return
-        
-    Returns:
-        List of balanced ticker symbols
-    """
-    balanced_tickers = []
-    
-    for sector, config in SECTOR_CONFIGURATION.items():
-        sector_allocation = int(max_tickers * config['weight'])
-        sector_allocation = max(config['min_tickers'], 
-                              min(config['max_tickers'], sector_allocation))
-        
-        sector_tickers = config['tickers'][:sector_allocation]
-        balanced_tickers.extend(sector_tickers)
-    
-    # Remove duplicates while preserving order
-    seen = set()
-    unique_tickers = []
-    for ticker in balanced_tickers:
-        if ticker not in seen:
-            seen.add(ticker)
-            unique_tickers.append(ticker)
-    
-    return unique_tickers[:max_tickers]
-
-def get_risk_parameters(ticker: str) -> Dict:
-    """
-    Get risk parameters for specific ticker.
-    
-    Args:
-        ticker: Stock symbol
-        
-    Returns:
-        Dict with risk parameters
-    """
-    # Determine ticker tier
-    for tier, config in MARKET_CAP_TIERS.items():
-        if ticker in config['tickers']:
-            if tier == 'mega_cap':
-                return RISK_PARAMETERS['conservative']
-            elif tier == 'large_cap':
-                return RISK_PARAMETERS['moderate']
-            else:
-                return RISK_PARAMETERS['aggressive']
-    
-    # Default to moderate for unknown tickers
-    return RISK_PARAMETERS['moderate']
-
-def is_high_liquidity_ticker(ticker: str) -> bool:
-    """
-    Check if ticker has high options liquidity.
-    
-    Args:
-        ticker: Stock symbol
-        
-    Returns:
-        bool: True if high liquidity
-    """
-    return ticker in HIGH_QUALITY_SP500_TICKERS
-
-def get_ticker_sector(ticker: str) -> str:
-    """
-    Get sector for ticker.
-    
-    Args:
-        ticker: Stock symbol
-        
-    Returns:
-        Sector name or 'unknown'
-    """
-    for sector, config in SECTOR_CONFIGURATION.items():
-        if ticker in config['tickers']:
-            return sector
-    
-    return 'unknown'
-
-# For testing
 if __name__ == "__main__":
-    print("🧪 Testing Custom Ticker Config:")
+    print("🎯 ALPHA HUNTER V2 - CUSTOM TICKER CONFIGURATION")
+    print("=" * 60)
     
-    print(f"High quality tickers (10): {get_high_quality_tickers(10)}")
-    print(f"Sector balanced (20): {get_sector_balanced_tickers(20)}")
-    print(f"AAPL risk params: {get_risk_parameters('AAPL')}")
-    print(f"AAPL sector: {get_ticker_sector('AAPL')}")
-    print(f"SPY high liquidity: {is_high_liquidity_ticker('SPY')}")
+    print(f"📊 Total Tickers: {len(FOCUS_TICKER_LIST)}")
     
-    print("✅ Custom Ticker Config test completed")
+    high_priority = get_priority_tickers(9)
+    print(f"⭐ High Priority (≥9): {len(high_priority)} tickers")
+    for ticker in high_priority:
+        print(f"   └─ {ticker}: {high_priority[ticker]['name']}")
+    
+    etfs = get_tickers_by_type('ETF')
+    print(f"\n📈 ETFs: {len(etfs)} tickers")
+    for ticker in etfs:
+        print(f"   └─ {ticker}: {etfs[ticker]['name']}")
+    
+    stocks = get_tickers_by_type('Stock')
+    print(f"\n🏢 Stocks: {len(stocks)} tickers")
+    
+    print(f"\n🎯 Focus Configuration:")
+    print(f"├─ Max Concurrent: {ANALYSIS_CONFIG['max_concurrent_analysis']}")
+    print(f"├─ Priority First: {ANALYSIS_CONFIG['priority_first']}")  
+    print(f"└─ Min Quality: {ANALYSIS_CONFIG['min_quality_threshold']}%")
