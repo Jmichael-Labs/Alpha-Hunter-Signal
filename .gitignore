@@ -110,7 +110,6 @@ documentation/
 
 # Configuration Files with Personal Data
 present_continuous_calibration.json
-custom_ticker_config.py
 quantum_config.json
 
 # Backup Files
