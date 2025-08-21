@@ -53,19 +53,19 @@ class APICredentialsManager:
         default_creds = {
             # Financial Data APIs - usando tus claves reales
             "yahoo": {"api_key": "", "status": "active"},
-            "polygon": {"api_key": os.getenv('POLYGON_API_KEY', 'lZ0ahaVW6ApQrcVhVWWZsVg067nx_HPN'), "status": "active"},
-            "alphavantage": {"api_key": os.getenv('ALPHA_VANTAGE_KEY', '2MNPXZV1DFGP2OTT'), "status": "active"},
+            "polygon": {"api_key": os.getenv('POLYGON_API_KEY', ''), "status": "active"},
+            "alphavantage": {"api_key": os.getenv('ALPHA_VANTAGE_KEY', ''), "status": "active"},
             "iex": {"api_key": os.getenv('IEX_API_KEY', ''), "status": "inactive"},  # IEX no funciona según usuario
             "fmp": {"api_key": os.getenv('FMP_API_KEY', ''), "status": "inactive"},
             "quandl": {"api_key": os.getenv('QUANDL_API_KEY', ''), "status": "inactive"},
-            "finnhub": {"api_key": os.getenv('FINNHUB_API_KEY', 'd08hi3hr01qh1ecc942gd08hi3hr01qh1ecc9430'), "status": "active"},
+            "finnhub": {"api_key": os.getenv('FINNHUB_API_KEY', ''), "status": "active"},
             "worldtradingdata": {"api_key": os.getenv('WTD_API_KEY', ''), "status": "inactive"},
             
             
             # Communication APIs - usando tus claves reales
             "telegram": {
-                "bot_token": os.getenv('TELEGRAM_BOT_TOKEN', '7207008587:AAGxU7JbJgLUjNSV-5cTgpHlocdox2Lq55g'),
-                "chat_id": os.getenv('TELEGRAM_CHAT_ID', '7855418051'),
+                "bot_token": os.getenv('TELEGRAM_BOT_TOKEN', ''),
+                "chat_id": os.getenv('TELEGRAM_CHAT_ID', ''),
                 "status": "active"
             }
         }
