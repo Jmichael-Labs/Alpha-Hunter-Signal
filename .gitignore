@@ -1,0 +1,119 @@
+# Alpha Hunter Signals - .gitignore
+
+# Environment Variables (CRITICAL - Contains sensitive data)
+.env
+.env.local
+.env.production
+*.env
+
+# API Credentials and Keys (NEVER COMMIT)
+api_credentials.json
+*_keys.json
+*.key
+*.pem
+*credentials*
+
+# Telegram Configuration
+telegram_config.json
+bot_token.txt
+
+# Trading Data (Contains personal trading information)
+daily_status.json
+sent_tickets.json
+trades_log.csv
+historical_opportunities.csv
+quantum_evolution.db
+
+# Machine Learning Models (Large files)
+*.joblib
+*.pkl
+*.h5
+*.model
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv
+.ENV
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+debug_*.py
+test_*.py
+
+# Temporary Files
+temp/
+tmp/
+*.tmp
+
+# Daily Scans (Personal trading data)
+daily_scans/
+quantum_enhanced_alerts.json
+backup_pre_quantum/
+
+# Documentation Build
+docs/build/
+site/
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# Market Data Cache
+cache/
+*.cache
+
+# Personal Trading Screenshots/Images
+knowledge_base/
+documentacion/
+documentation/
+
+# Configuration Files with Personal Data
+present_continuous_calibration.json
+custom_ticker_config.py
+quantum_config.json
+
+# Backup Files
+*.backup
+*.bak
+*.old
